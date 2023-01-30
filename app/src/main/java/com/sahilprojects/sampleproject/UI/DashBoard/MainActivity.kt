@@ -1,12 +1,17 @@
 package com.sahilprojects.sampleproject.UI.DashBoard
 
+ import android.app.Dialog
  import android.content.Intent
  import android.os.Bundle
  import android.util.Log
  import android.view.Menu
  import android.view.MenuItem
- import android.view.View
+ import android.view.Window
+ import android.widget.Button
+ import android.widget.EditText
+ import android.widget.TextView
  import android.widget.Toast
+ import androidx.appcompat.app.AlertDialog
  import androidx.appcompat.app.AppCompatActivity
  import androidx.lifecycle.Observer
  import androidx.recyclerview.widget.DividerItemDecoration
@@ -20,12 +25,12 @@ package com.sahilprojects.sampleproject.UI.DashBoard
  import com.sahilprojects.sampleproject.model.Heads
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , DashBoardAdapter.onDashItemClicked {
 
 
     lateinit var app : IApp
     lateinit var recyclerView : RecyclerView
-    var fixedAmount = 30000
+    var fixedAmount = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +39,11 @@ class MainActivity : AppCompatActivity() {
 
         app = applicationContext as IApp;
         recyclerView = findViewById(R.id.rvHeads)
+
+       app.preference().putFixedAmout("30000")
+
+        val tv_fixed_Amount : TextView = findViewById(R.id.tvFixedAmount)
+
 
        val drawable = resources.getDrawable(R.drawable.grad_splash_screen,theme)
         supportActionBar!!.setBackgroundDrawable(drawable)
@@ -57,40 +67,73 @@ class MainActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(dividerItemDecoration)
 
 
+        val headName = ArrayList<String>()
+       headName.add("Family")
+       headName.add("EMI")
+       headName.add("Education")
+       headName.add("Health")
+       headName.add("Enjoyment")
+       headName.add("Insurance")
+       headName.add("Savings")
+       headName.add("Donation")
+       headName.add("Hotel")
+       headName.add("Travelling")
+       headName.add("Emergency Fund")
+       headName.add("Other")
+
+        val headPercentage = ArrayList<Int>()
+        headPercentage.add(30)
+        headPercentage.add(30)
+        headPercentage.add(5)
+        headPercentage.add(5)
+        headPercentage.add(5)
+        headPercentage.add(2)
+        headPercentage.add(7)
+        headPercentage.add(1)
+        headPercentage.add(3)
+        headPercentage.add(5)
+        headPercentage.add(5)
+        headPercentage.add(2)
 
 
+        for (i in 0..11)
+        {
+            Log.e("TAG", "onCreate: "+ headName[i] +" "+ headPercentage[i])
+        }
+
+
+        fixedAmount = Integer.parseInt(app.preference().getFixedAmout())
+        tv_fixed_Amount.text = fixedAmount.toString()+" ₹"
 
 
         Thread {
             Log.e("TAG", "onCreate: "+Db.getInstance(applicationContext).headDao().count )
-           if(Db.getInstance(applicationContext).headDao().count!=12)
-            for ( i in 1..12) {
-                Db.getInstance(applicationContext).headDao()
-                    .insert(Heads("Head $i", 10-i, (fixedAmount*10-1)/100, 0, 0))
+           if(Db.getInstance(applicationContext).headDao().count==0)
+            for ( i in 0..11) {
 
-                
+
+
+                if(fixedAmount.equals(0))
+                Db.getInstance(applicationContext).headDao()
+                    .insert(Heads(headName[i], headPercentage[i],0,0,0 ))
+                else
+                {
+                    Db.getInstance(applicationContext).headDao()
+                        .insert(Heads(headName[i], headPercentage[i],(fixedAmount*headPercentage[i])/100,0,0 ))
+                }
 
             } }.start()
 
         Db.getInstance(this).headDao().allHeads.observe(this,
             Observer<List<Any?>?> { heads ->
-
                 var heads1 = heads as ArrayList<Heads?>
-
-
-                Log.e("TAG", "onCreate: "+heads1.get(2)!!.headTitle )
-
                    var dashBoardAdapter =DashBoardAdapter(
                         heads as ArrayList<Heads?>,
-                        applicationContext
+                        applicationContext,this
                     )
                     recyclerView.adapter = dashBoardAdapter
 
             })
-
-
-
-
 
     }
 
@@ -122,6 +165,30 @@ class MainActivity : AppCompatActivity() {
 
 
         return super.onOptionsItemSelected(item)
+
+    }
+
+    override fun onItemClicked(headTitle: String?, headPercentage: Int, headAmount: Int, headUsedAmount: Int, headRemainingAmount: Int) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.add_expense_alert_ayout)
+        val title = dialog.findViewById(R.id.tvTitle) as TextView
+        val subTitle = dialog.findViewById(R.id.tvSubTitle) as TextView
+        val etAddAmount = dialog.findViewById(R.id.etExpenseAmount) as EditText
+        title.text = "Add expense for $headTitle"
+        subTitle.text = "You can do expense upto $headAmount ₹"
+
+
+        val yesBtn = dialog.findViewById(R.id.btn_yes) as Button
+        val noBtn = dialog.findViewById(R.id.btn_cancel) as Button
+        yesBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+        noBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
 
     }
 }

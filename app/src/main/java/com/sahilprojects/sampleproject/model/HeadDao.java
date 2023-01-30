@@ -12,7 +12,7 @@ package com.sahilprojects.sampleproject.model;
 @Dao
 public interface HeadDao {
 
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  @Insert(onConflict = OnConflictStrategy.IGNORE)
   void insert(Heads heads);
 
   @Query("select Count(*) from heads")
