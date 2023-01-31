@@ -6,6 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".UI.DashBoard.MainActivity">
 
+    <LinearLayout
+        android:padding="10dp"
+        android:background="@drawable/grad_splash_screen"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:text="From :"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:onClick="setDate1"
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:text="Select Date"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:text="To :"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:onClick="setDate2"
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:text="Select Date"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

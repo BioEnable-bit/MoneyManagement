@@ -11,7 +11,7 @@ package com.sahilprojects.sampleproject.UI
 class AddPaymentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_report)
+        setContentView(R.layout.activity_add_payment)
 
        val drawable = resources.getDrawable(R.drawable.grad_splash_screen,theme)
         supportActionBar!!.setBackgroundDrawable(drawable)

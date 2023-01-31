@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Money Management</string>
+    <string name="app_name">VCM Notepad</string>
     <string name="pref_sync_data">pref_sync_data</string>
 
 </resources>
