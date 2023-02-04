@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.Database;
 
 
-@Database(entities = {Log.class,Heads.class},exportSchema = false,version = 1)
+@Database(entities = {Log.class,Heads.class, FixedAmount.class},exportSchema = false,version = 1)
 //@TypeConverters({Database.Converter.class})
 public abstract class Db extends RoomDatabase {
 
@@ -30,6 +30,7 @@ public abstract class Db extends RoomDatabase {
 
     public abstract LogDao logDao();
     public abstract HeadDao headDao();
+    public abstract FixedAmountDao fixedAmountDao();
 
 
  }

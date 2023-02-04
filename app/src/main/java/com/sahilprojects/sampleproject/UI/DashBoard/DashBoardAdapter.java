@@ -49,10 +49,11 @@ public class DashBoardAdapter extends  RecyclerView.Adapter<DashBoardAdapter.Exa
     @Override
     public void onBindViewHolder(ExampleViewHolder holder, int position) {
         currentItem = heads.get(position);
-        holder.headsTitle.setText(currentItem.getHeadTitle()+" ("+currentItem.getHeadPercent()+"%)");
+        //holder.headsTitle.setText(currentItem.getHeadTitle()+" ("+currentItem.getHeadPercent()+"%)");
+        holder.headsTitle.setText(currentItem.getHeadTitle());
         holder.headsAmount.setText(String.valueOf(currentItem.getHeadAmount()));
         holder.headsUsedAmount.setText(String.valueOf(currentItem.getHeadUsedAmount()));
-        holder.headsRemainingAmount.setText(String.valueOf(currentItem.getHeadAmount()-currentItem.getHeadUsedAmount()));
+        holder.headsRemainingAmount.setText(String.valueOf(currentItem.getHeadRemainingAmount()));
 
 
     }

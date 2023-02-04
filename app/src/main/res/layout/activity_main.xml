@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".UI.DashBoard.MainActivity">
 
+
+
  <LinearLayout
      android:orientation="vertical"
      android:background="@drawable/grad_splash_screen"
@@ -48,9 +50,10 @@
 
 
 
+
+
  <TableLayout
-     android:visibility="gone"
-     android:layout_marginTop="10dp"
+      android:layout_marginTop="10dp"
      android:id="@+id/table_dash"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"

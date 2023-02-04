@@ -9,6 +9,12 @@ interface Preferences {
     fun putFixedAmout(fixedAmount: String)
     fun getFixedAmout(): String
 
+    fun putExtraAmout1(extraAmount1: String)
+    fun getExtraAmout1(): String
+
+    fun putExtraAmout2(extraAmount2: String)
+    fun getExtraAmout2(): String
+
 
 
 

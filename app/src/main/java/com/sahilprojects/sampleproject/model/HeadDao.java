@@ -6,14 +6,19 @@ package com.sahilprojects.sampleproject.model;
  import androidx.room.Insert;
  import androidx.room.OnConflictStrategy;
  import androidx.room.Query;
+ import androidx.room.Update;
 
  import java.util.List;
 
 @Dao
 public interface HeadDao {
 
-  @Insert(onConflict = OnConflictStrategy.IGNORE)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
   void insert(Heads heads);
+
+  @Query("update heads set headAmount = :headAmount, headUsedAmount = :headUsedAmount, headRemainingAmount =:headRemainingAmount where headTitle = :headTitle")
+  void updateHeads (String headTitle,int headAmount, int headUsedAmount,int headRemainingAmount);
+
 
   @Query("select Count(*) from heads")
   int getCount();
@@ -22,4 +27,10 @@ public interface HeadDao {
     LiveData<List<Heads>> getAllHeads();
 
 
+    /*UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;*/
+
+    @Query("update heads set  headRemainingAmount = :remaingAmount, headUsedAmount = :usedAmount where headTitle =:headTitle")
+    void updateExpenseAmount(String headTitle,int usedAmount,int remaingAmount);
 }
