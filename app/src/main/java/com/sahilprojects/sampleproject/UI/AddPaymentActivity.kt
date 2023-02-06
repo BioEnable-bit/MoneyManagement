@@ -10,6 +10,7 @@ package com.sahilprojects.sampleproject.UI
  import android.widget.Toast
  import androidx.appcompat.app.AppCompatActivity
  import com.sahilprojects.sampleproject.R
+ import com.sahilprojects.sampleproject.apps.CommonClass
  import com.sahilprojects.sampleproject.apps.IApp
  import com.sahilprojects.sampleproject.model.Db
  import com.sahilprojects.sampleproject.model.FixedAmount
@@ -23,6 +24,7 @@ class AddPaymentActivity : AppCompatActivity() {
     private lateinit var et_Extra_amount2 : EditText
     private lateinit var app : IApp
     var fixedAmount = "0"
+    var fixedAmount1 = 0
     var extraAmount1 = "0"
     var extraAmount2 = "0"
     var previousAmount = 0
@@ -60,6 +62,22 @@ class AddPaymentActivity : AppCompatActivity() {
              }
          }
 
+        Thread {
+
+            val heads = app.db().headDao().head(4);
+            Log.e("TAG", "headTitle: "+heads.headTitle)
+            Log.e("TAG", "headAmount: "+heads.headAmount)
+            Log.e("TAG", "headPercent: "+heads.headPercent)
+            Log.e("TAG", "headUsedAmount: "+heads.headUsedAmount)
+            Log.e("TAG", "headRemainingAmount: "+heads.headRemainingAmount)
+
+
+        }.start()
+
+
+
+
+
 
 
     }
@@ -80,14 +98,28 @@ class AddPaymentActivity : AppCompatActivity() {
             extraAmount2 = "0"
 
 
-
-
         var finalAmount = Integer.parseInt(fixedAmount) + Integer.parseInt(extraAmount1) + Integer.parseInt(extraAmount2);
-
-
 
         Log.e("TAG", "previousAmount: $previousAmount")
         Log.e("TAG", "finalAmount: $finalAmount")
+
+
+
+
+
+
+      val commonClass = CommonClass()
+        val arrList1 = commonClass.headName
+        val arrList2 = commonClass.headPercentage
+
+
+
+
+
+
+
+
+
 
        Thread{
            if(previousAmount!=0) {
@@ -97,12 +129,46 @@ class AddPaymentActivity : AppCompatActivity() {
                Log.e("TAG", "totalAmount: $totalAmount")
                app.db().fixedAmountDao().delete()
                app.db().fixedAmountDao().insert(FixedAmount(totalAmount))
+
+
+               for (i in 0..11) {
+
+                   val heads = app.db().headDao().head(i);
+
+                   Db.getInstance(applicationContext).headDao()
+                       .updateHeads(
+                           commonClass.headName[i],
+                           (totalAmount * commonClass.headPercentage[i]) / 100,
+                           0 + heads.headUsedAmount,
+                           //heads.headRemainingAmount + (totalAmount * commonClass.headPercentage[i]) / 100
+                           heads.headRemainingAmount + (finalAmount * commonClass.headPercentage[i]) / 100
+
+                       )
+
+               }
+
            }
            else {
                Log.e("TAG", "submit: $finalAmount")
                app.db().fixedAmountDao().insert(FixedAmount(finalAmount))
 
-          }
+
+
+               for (i in 0..11) {
+
+                   val heads = app.db().headDao().head(i);
+                   Db.getInstance(applicationContext).headDao()
+                       .updateHeads(
+                           commonClass.headName[i],
+                           (finalAmount * commonClass.headPercentage[i]) / 100,
+                           0 + heads.headUsedAmount,
+                           heads.headRemainingAmount + (finalAmount * commonClass.headPercentage[i]) / 100
+
+                       )
+
+               }
+
+           }
 
 
        }.start()
@@ -113,31 +179,31 @@ class AddPaymentActivity : AppCompatActivity() {
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        menuInflater.inflate(R.menu.main_menu, menu)
+//        return true
+//    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here.
-        val id = item.getItemId()
-
-        if (id == R.id.action_add_payment) {
-            Toast.makeText(this, "Item Add Payment", Toast.LENGTH_LONG).show()
-            return true
-        }
-        if (id == R.id.action_reports) {
-            Toast.makeText(this, "Item Reports", Toast.LENGTH_LONG).show()
-            return true
-        }
-        if (id == androidx.appcompat.R.id.home) {
-            Toast.makeText(this, "Item Home", Toast.LENGTH_LONG).show()
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
-
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        // Handle action bar item clicks here.
+//        val id = item.getItemId()
+//
+//        if (id == R.id.action_add_payment) {
+//            Toast.makeText(this, "Item Add Payment", Toast.LENGTH_LONG).show()
+//            return true
+//        }
+//        if (id == R.id.action_reports) {
+//            Toast.makeText(this, "Item Reports", Toast.LENGTH_LONG).show()
+//            return true
+//        }
+//        if (id == androidx.appcompat.R.id.home) {
+//            Toast.makeText(this, "Item Home", Toast.LENGTH_LONG).show()
+//            return true
+//        }
+//
+//        return super.onOptionsItemSelected(item)
+//
+//    }
 
 }

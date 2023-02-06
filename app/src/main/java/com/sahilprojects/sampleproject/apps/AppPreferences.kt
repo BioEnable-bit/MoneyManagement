@@ -14,6 +14,7 @@ class AppPreferences(val context:Context) : Preferences {
     private val FIXEDAMOUNT = "fixed_amount"
     private val EXTRAAMOUNT1 = "extra_amount1"
     private val EXTRAAMOUNT2 = "extra_amount2"
+    private val DEVIDEDVALUE = "devided_value"
 
     override fun putUUID(uuid: String) {
       prefs.edit().putString(UUID,uuid).commit()
@@ -21,6 +22,14 @@ class AppPreferences(val context:Context) : Preferences {
 
     override fun getUUID(): String {
         return prefs.getString(UUID,null)?:""
+    }
+
+    override fun putDevidedStatus(status: Boolean) {
+        prefs.edit().putBoolean(DEVIDEDVALUE,status).commit()
+    }
+
+    override fun getDevidedStatus(): Boolean {
+        return prefs.getBoolean(DEVIDEDVALUE,false)
     }
 
     override fun putFixedAmout(fixedAmount: String) {

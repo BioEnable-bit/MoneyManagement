@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() , DashBoardAdapter.onDashItemClicked {
             if(count==0)
             {
                 fixedAmount == 0
-                tv_fixed_Amount.text =  "00 ₹"
+                tv_fixed_Amount.text =  "0 ₹"
                 Log.e("TAG", "attachData1: ")
                 attachData()
             }
@@ -154,22 +154,24 @@ class MainActivity : AppCompatActivity() , DashBoardAdapter.onDashItemClicked {
                     Db.getInstance(applicationContext).headDao()
                         .insert(Heads(headName[i], headPercentage[i], 0, 0, 0))
                 }
+
+
             }
             else {
 
                 Log.e("TAG", "Value$fixedAmount")
 
-                for (i in 0..11) {
-                    Db.getInstance(applicationContext).headDao()
-                        .updateHeads(
-                            headName[i],
-                                (fixedAmount * headPercentage[i]) / 100,
-                                0,
-                                (fixedAmount * headPercentage[i]) / 100
-
-                        )
-
-                }
+//                for (i in 0..11) {
+//                    Db.getInstance(applicationContext).headDao()
+//                        .updateHeads(
+//                            headName[i],
+//                                (fixedAmount * headPercentage[i]) / 100,
+//                                0,
+//                                (fixedAmount * headPercentage[i]) / 100
+//
+//                        )
+//
+//                }
             }
         }.start()
 

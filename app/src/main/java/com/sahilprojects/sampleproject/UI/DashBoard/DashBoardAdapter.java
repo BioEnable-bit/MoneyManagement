@@ -3,6 +3,7 @@ package com.sahilprojects.sampleproject.UI.DashBoard;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,28 @@ public class DashBoardAdapter extends  RecyclerView.Adapter<DashBoardAdapter.Exa
         holder.headsAmount.setText(String.valueOf(currentItem.getHeadAmount()));
         holder.headsUsedAmount.setText(String.valueOf(currentItem.getHeadUsedAmount()));
         holder.headsRemainingAmount.setText(String.valueOf(currentItem.getHeadRemainingAmount()));
+
+       
+
+
+        if(currentItem.getHeadAmount()==currentItem.getHeadRemainingAmount() && currentItem.getHeadAmount()!=0 ) {
+            holder.headsRemainingAmount.setTextColor(context.getResources().getColor(R.color.green));
+            holder.headsRemainingAmount.setTypeface(holder.headsRemainingAmount.getTypeface(), Typeface.BOLD);
+        }
+
+
+        if(currentItem.getHeadRemainingAmount()!=0 && currentItem.getHeadRemainingAmount()!=currentItem.getHeadAmount()) {
+            holder.headsRemainingAmount.setTextColor(context.getResources().getColor(R.color.orange));
+            holder.headsRemainingAmount.setTypeface(holder.headsRemainingAmount.getTypeface(), Typeface.BOLD);
+        }
+
+        if(currentItem.getHeadRemainingAmount()<=0 && currentItem.getHeadAmount()!=0) {
+            holder.headsRemainingAmount.setTextColor(context.getResources().getColor(R.color.red));
+            holder.headsRemainingAmount.setTypeface(holder.headsRemainingAmount.getTypeface(), Typeface.BOLD);
+        }
+
+
+
 
 
     }

@@ -6,6 +6,9 @@ interface Preferences {
     fun putUUID(uuid: String)
     fun getUUID(): String
 
+    fun putDevidedStatus(status: Boolean)
+    fun getDevidedStatus(): Boolean
+
     fun putFixedAmout(fixedAmount: String)
     fun getFixedAmout(): String
 

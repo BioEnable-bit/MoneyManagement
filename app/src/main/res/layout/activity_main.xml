@@ -76,7 +76,7 @@
        android:textStyle="bold"></TextView>
 
    <TextView
-       android:gravity="right"
+       android:gravity="center"
 
        android:id="@+id/tvHeadAmount"
        android:layout_width="match_parent"
@@ -84,12 +84,13 @@
        android:layout_weight="0.5"
         android:padding="5dp"
        android:text="Amount"
+       android:textStyle="bold"
        android:textAppearance="?android:attr/textAppearanceMedium"
        android:textColor="@color/white"
        android:textSize="15dp"></TextView>
 
    <TextView
-       android:gravity="right"
+       android:gravity="center"
 
        android:id="@+id/tvHeadUsedAmount"
        android:layout_width="match_parent"
@@ -97,12 +98,13 @@
        android:layout_weight="0.5"
         android:padding="5dp"
        android:text="Used\nAmount"
+       android:textStyle="bold"
        android:textAppearance="?android:attr/textAppearanceMedium"
        android:textColor="@color/white"
        android:textSize="15dp"></TextView>
 
    <TextView
-       android:gravity="right"
+       android:gravity="center"
 
        android:id="@+id/tvHeadRemainingAmount"
        android:layout_width="match_parent"
@@ -110,6 +112,7 @@
        android:layout_weight="0.5"
         android:padding="5dp"
        android:text="Remaining\nAmount"
+       android:textStyle="bold"
        android:textAppearance="?android:attr/textAppearanceMedium"
        android:textColor="@color/white"
        android:textSize="15dp"></TextView>

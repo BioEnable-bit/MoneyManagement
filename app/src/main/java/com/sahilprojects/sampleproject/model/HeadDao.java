@@ -26,10 +26,12 @@ public interface HeadDao {
     @Query("select * from heads")
     LiveData<List<Heads>> getAllHeads();
 
+    @Query("SELECT * FROM heads LIMIT :value,1")
+    Heads head(int value);
 
-    /*UPDATE table_name
-SET column1 = value1, column2 = value2, ...
-WHERE condition;*/
+
+
+
 
     @Query("update heads set  headRemainingAmount = :remaingAmount, headUsedAmount = :usedAmount where headTitle =:headTitle")
     void updateExpenseAmount(String headTitle,int usedAmount,int remaingAmount);
